@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Users</title>
+</head>
+<body>
+    <h1>Search Users</h1>
+    <input type="text" id="searchInput" placeholder="Enter name...">
+    <button onclick="searchUser()">Search</button>
+    <div id="searchResult"></div>
+
+    <script>
+        async function searchUser() {
+            const searchInput = document.getElementById('searchInput').value;
+            const response = await fetch(`/users/search?name=${searchInput}`);
+            const data = await response.json();
+            const searchResultDiv = document.getElementById('searchResult');
+            if (data.message) {
+                searchResultDiv.innerHTML = `<p>${data.message}</p>`;
+            } else {
+                searchResultDiv.innerHTML = `<p>Last Name: ${data.lastName}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
